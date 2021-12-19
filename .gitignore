@@ -1,6 +1,6 @@
-build*
+/build/
 *.user
 arch/okular-backend-mupdf
 arch/*.tar.*
-.kde*
+
 *.txt.user*

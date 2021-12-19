@@ -36,7 +36,7 @@ QImage convert_fz_pixmap(fz_context *ctx, fz_pixmap *image)
     QImage img(w, h, QImage::Format_RGBA8888);
 
     if (img.bytesPerLine() == fz_pixmap_stride(ctx, image)) {
-		std::copy_n(img.bits(), img.sizeInBytes(), fz_pixmap_samples(ctx, image));
+        memcpy(img.bits(), fz_pixmap_samples(ctx, image), img.sizeInBytes());
     } else {
         qWarning() << "QImage line stride" << img.bytesPerLine() << "doesn't match" << fz_pixmap_stride(ctx, image);
         QRgb *data = reinterpret_cast<QRgb *>(fz_pixmap_samples(ctx, image));
