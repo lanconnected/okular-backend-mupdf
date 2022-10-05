@@ -4,6 +4,10 @@
             {
                 "Email": "pino@kde.org",
                 "Name": "Pino Toscano"
+            },
+            {
+                "Email": "gustawho@gmail.com",
+                "Name": "Gustavo Castro (maintainer)"
             }
         ],
         "Copyright": "© 2008 Pino Toscano",
