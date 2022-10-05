@@ -80,7 +80,6 @@ Page::Page(fz_context *ctx, fz_document *doc, int num) :
     d(new Page::Data(num, ctx, doc, fz_load_page(ctx, doc, num)))
 {
     Q_ASSERT(doc && ctx);
-    free(d);
 }
 
 Page::Page(const Page &other) = default;
