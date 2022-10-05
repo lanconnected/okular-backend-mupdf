@@ -13,6 +13,8 @@ extern "C" {
 #include <mupdf/fitz.h>
 }
 
+#include <algorithm>
+
 #include <QDebug>
 #include <QImage>
 #include <QSharedData>
@@ -36,7 +38,13 @@ QImage convert_fz_pixmap(fz_context *ctx, fz_pixmap *image)
     QImage img(w, h, QImage::Format_RGBA8888);
 
     if (img.bytesPerLine() == fz_pixmap_stride(ctx, image)) {
-        memcpy(img.bits(), fz_pixmap_samples(ctx, image), img.sizeInBytes());
+        if (img.sizeInBytes() > 0) {
+            memcpy(img.bits(), fz_pixmap_samples(ctx, image), img.sizeInBytes());
+        }
+        else {
+            qWarning() << "Incorrect image size value!";
+        }
+
     } else {
         qWarning() << "QImage line stride" << img.bytesPerLine() << "doesn't match" << fz_pixmap_stride(ctx, image);
         QRgb *data = reinterpret_cast<QRgb *>(fz_pixmap_samples(ctx, image));
@@ -72,6 +80,7 @@ Page::Page(fz_context *ctx, fz_document *doc, int num) :
     d(new Page::Data(num, ctx, doc, fz_load_page(ctx, doc, num)))
 {
     Q_ASSERT(doc && ctx);
+    free(d);
 }
 
 Page::Page(const Page &other) = default;
@@ -148,6 +157,7 @@ QVector<TextBox *> Page::textBoxes(const QSizeF &dpi) const
                 TextBox *box = new TextBox(text, convert_fz_rect(fz_rect_from_quad(ch->quad), dpi));
                 boxes.append(box);
                 hasText = true;
+                free(box);
             }
 
             if (hasText) {

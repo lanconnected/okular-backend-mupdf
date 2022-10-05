@@ -55,6 +55,7 @@ Okular::Document::OpenResult MuPDFGenerator::loadDocumentWithPassword(
         Okular::Page *okularPage = new Okular::Page(i, s.width(), s.height(), rot);
         okularPage->setDuration(page.duration());
         pages.append(okularPage);
+        free(okularPage);
     }
 
     return Okular::Document::OpenSuccess;
