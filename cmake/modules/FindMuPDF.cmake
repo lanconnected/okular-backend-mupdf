@@ -11,9 +11,6 @@ find_path(MuJS_INCLUDE_DIR
 find_library(MuPDF_MAIN_LIBRARY
     NAMES mupdf
 )
-find_library(MuPDF_THIRD_LIBRARY
-    NAMES mupdf-third
-)
 find_library(MuJS_LIBRARY
     NAMES mujs
 )
@@ -24,7 +21,6 @@ find_package_handle_standard_args(MuPDF
     REQUIRED_VARS
         MuPDF_INCLUDE_DIR
         MuPDF_MAIN_LIBRARY
-        MuPDF_THIRD_LIBRARY
         MuJS_LIBRARY
 )
 
@@ -35,12 +31,6 @@ if(MuPDF_FOUND)
             IMPORTED_LOCATION "${MuPDF_MAIN_LIBRARY}"
             INTERFACE_INCLUDE_DIRECTORIES "${MuPDF_INCLUDE_DIR}")
     endif()
-    if (NOT TARGET MuPDF::Third)
-        add_library(MuPDF::Third UNKNOWN IMPORTED)
-        set_target_properties(MuPDF::Third PROPERTIES
-            IMPORTED_LOCATION "${MuPDF_THIRD_LIBRARY}"
-            INTERFACE_INCLUDE_DIRECTORIES "${MuPDF_INCLUDE_DIR}")
-    endif()
     if (NOT TARGET MuPDF::MuJS)
         add_library(MuPDF::MuJS UNKNOWN IMPORTED)
         set_target_properties(MuPDF::MuJS PROPERTIES
@@ -49,9 +39,9 @@ if(MuPDF_FOUND)
     endif()
 endif()
 
-mark_as_advanced(MuPDF_MAIN_LIBRARY MuPDF_THIRD_LIBRARY MuJS_LIBRARY MuPDF_INCLUDE_DIR MuJS_INCLUDE_DIR)
+mark_as_advanced(MuPDF_MAIN_LIBRARY MuJS_LIBRARY MuPDF_INCLUDE_DIR MuJS_INCLUDE_DIR)
 
 if(MuPDF_FOUND)
-    set(MuPDF_LIBRARIES ${MuPDF_MAIN_LIBRARY} ${MuPDF_THIRD_LIBRARY} ${MuJS_LIBRARY})
+    set(MuPDF_LIBRARIES ${MuPDF_MAIN_LIBRARY} ${MuJS_LIBRARY})
     set(MuPDF_INCLUDE_DIRS ${MuPDF_INCLUDE_DIR})
 endif()

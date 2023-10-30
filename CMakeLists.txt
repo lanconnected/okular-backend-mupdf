@@ -1,7 +1,7 @@
+cmake_minimum_required(VERSION 3.16.0)
 project(okular-mupdf)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
-cmake_minimum_required(VERSION 2.8.12)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -57,7 +57,6 @@ target_link_libraries(okularGenerator_mupdf
     Okular::Core
     KF5::I18n
     MuPDF::Main
-    MuPDF::Third
     MuPDF::MuJS
     JPEG::JPEG
     ${OPENJPEG_LIBRARIES}
