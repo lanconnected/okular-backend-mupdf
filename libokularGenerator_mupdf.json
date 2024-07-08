@@ -12,7 +12,6 @@
         ],
         "Copyright": "© 2008 Pino Toscano",
         "Description": "A PDF backend based on the MuPDF library",
-        "Id": "okular_mupdf",
         "License": "GPL",
         "MimeTypes": [
             "application/x-pdf",
