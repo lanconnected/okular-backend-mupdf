@@ -1,23 +1,24 @@
-# Maintainer: Gustavo Castro < gustawho [ at ] gmail [ dot ] com >
+# Maintainer: Evzen Demcenko
+# Contributor: Gustavo Castro < gustawho [ at ] gmail [ dot ] com >
 # Contributor: xylosper <darklin20@gmail.com>
 # Contributor: Martin T. H. Sandsmark <martin.sandsmark@kde.org>
 
-pkgname=okular-backend-mupdf-git
-pkgver=r81.1ba0160
+pkgname=okular-backend-mupdf-lnc
+pkgver=r93.34deed7
 pkgrel=1
-pkgdesc="MuPDF-based backend for Okular (git version)"
+pkgdesc="MuPDF-based backend for Okular (git)"
 arch=('x86_64')
 license=('AGPL')
-depends=('okular' 'libmupdf' 'gumbo-parser' 'mujs')
+depends=('gcc-libs' 'glibc' 'kcoreaddons' 'ki18n' 'libmupdf' 'okular' 'qt6-base')
 makedepends=('extra-cmake-modules' 'git')
-url="https://github.com/gustawho/okular-backend-mupdf"
+url="https://github.com/lanconnected/okular-backend-mupdf"
 source=("git+${url}.git")
 sha1sums=('SKIP')
-conflicts=("okular-backend-mupdf")
+conflicts=("okular-backend-mupdf-git")
 provides=("okular-backend-mupdf")
 
 pkgver() {
-  cd ${pkgname%-git}
+  cd ${pkgname%-lnc}
   ( set -o pipefail
     git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
     printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
@@ -25,7 +26,7 @@ pkgver() {
 }
 
 build() {
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S ${pkgname%-git}
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S ${pkgname%-lnc}
   cmake --build build --config RelWithDebInfo
 }
 

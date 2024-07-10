@@ -152,8 +152,8 @@ QVector<TextBox *> Page::textBoxes(const QSizeF &dpi) const
             bool hasText = false;
 
             for (fz_stext_char *ch = line->first_char; ch; ch = ch->next) {
-                const int text = ch->c;
-                TextBox *box = new TextBox(QChar(text), convert_fz_rect(fz_rect_from_quad(ch->quad), dpi));
+                const char16_t text = ch->c;
+                TextBox *box = new TextBox(text, convert_fz_rect(fz_rect_from_quad(ch->quad), dpi));
                 boxes.append(box);
                 hasText = true;
             }

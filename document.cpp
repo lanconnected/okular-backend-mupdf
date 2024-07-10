@@ -88,7 +88,6 @@ struct Document::Data {
             Outline *child = new Outline(out);
             item->appendChild(child);
             convertOutline(out->down, child);
-            delete(child);
         }
     }
 };

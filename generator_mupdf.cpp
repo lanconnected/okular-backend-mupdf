@@ -172,10 +172,10 @@ static Okular::TextPage *buildTextPage(const QVector<QMuPDF::TextBox *> &boxes,
         if (box->isAtEndOfLine()) {
             text.append(QLatin1Char('\n'));
         }
-	Okular::NormalizedRect rect = Okular::NormalizedRect(
-                        charBBox.left() / width, charBBox.top() / height,
-                        charBBox.right() / width, charBBox.bottom() / height);
-        ktp->append(text, rect);
+
+        ktp->append(text, Okular::NormalizedRect(
+                            charBBox.left() / width, charBBox.top() / height,
+                            charBBox.right() / width, charBBox.bottom() / height));
     }
 
     return ktp;
