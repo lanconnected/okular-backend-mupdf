@@ -3,8 +3,8 @@
 # Contributor: xylosper <darklin20@gmail.com>
 # Contributor: Martin T. H. Sandsmark <martin.sandsmark@kde.org>
 
-pkgname=okular-backend-mupdf-lnc
-pkgver=r93.34deed7
+pkgname=okular-backend-mupdf-git
+pkgver=r93.384d237
 pkgrel=1
 pkgdesc="MuPDF-based backend for Okular (git)"
 arch=('x86_64')
@@ -14,11 +14,11 @@ makedepends=('extra-cmake-modules' 'git')
 url="https://github.com/lanconnected/okular-backend-mupdf"
 source=("git+${url}.git")
 sha1sums=('SKIP')
-conflicts=("okular-backend-mupdf-git")
-provides=("okular-backend-mupdf")
+conflicts=("okular-backend-mupdf")
+provides=("okular-backend-mupdf-git")
 
 pkgver() {
-  cd ${pkgname%-lnc}
+  cd ${pkgname%-git}
   ( set -o pipefail
     git describe --long 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
     printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
@@ -26,7 +26,7 @@ pkgver() {
 }
 
 build() {
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S ${pkgname%-lnc}
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo -B build -S ${pkgname%-git}
   cmake --build build --config RelWithDebInfo
 }
 
