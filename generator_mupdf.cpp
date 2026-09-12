@@ -19,7 +19,7 @@
 #include <QImage>
 #include <QMutexLocker>
 
-OKULAR_EXPORT_PLUGIN(MuPDFGenerator, "libokularGenerator_mupdf.json")
+K_PLUGIN_CLASS_WITH_JSON(MuPDFGenerator, "libokularGenerator_mupdf.json")
 
 MuPDFGenerator::MuPDFGenerator(QObject *parent, const QVariantList &args)
     : Generator(parent, args)
